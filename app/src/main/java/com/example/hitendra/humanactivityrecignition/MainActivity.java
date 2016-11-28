@@ -56,16 +56,11 @@ public class MainActivity extends AppCompatActivity {
                 } // Make Sure to disable activtyRunning Once Data is Gathered
             }
         });
-
     }
 
     public static void startService(View view) {
-
         Intent startSenseService = new Intent(view.getContext(), Accelerometer.class);
-
         view.getContext().startService(startSenseService);
-
-
     }
 }
 

@@ -33,7 +33,6 @@ public class PatientDBHandler extends AppCompatActivity {
             dbhandler.beginTransaction();
             try{
 
-
                 dbhandler.execSQL("CREATE TABLE IF NOT EXISTS "+ TABLE_NAME + " ("+ " ID INT IDENTITY(1,1) , "
                         + "X_Val_1 float, "+"Y_Val_1 float, "+"Z_Val_1 float, "+"X_Val_2 float, "+"Y_Val_2 float, "+"Z_Val_2 float, "+"X_Val_3 float, "+"Y_Val_3 float, "+"Z_Val_3 float, "+"X_Val_4 float, "+"Y_Val_4 float, "+"Z_Val_4 float, "+"X_Val_5 float, "+"Y_Val_5 float, "+"Z_Val_5 float, "+"X_Val_6 float, "+"Y_Val_6 float, "+"Z_Val_6 float, "+"X_Val_7 float, "+"Y_Val_7 float, "+"Z_Val_7 float, "+"X_Val_8 float, "+"Y_Val_8 float, "+"Z_Val_8 float, "+"X_Val_9 float, "+"Y_Val_9 float, "+"Z_Val_9 float, "+"X_Val_10 float, "+"Y_Val_10 float, "+"Z_Val_10 float, "+"X_Val_11 float, "+"Y_Val_11 float, "+"Z_Val_11 float, "+"X_Val_12 float, "+"Y_Val_12 float, "+"Z_Val_12 float, "+"X_Val_13 float, "+"Y_Val_13 float, "+"Z_Val_13 float, "+"X_Val_14 float, "+"Y_Val_14 float, "+"Z_Val_14 float, "+"X_Val_15 float, "+"Y_Val_15 float, "+"Z_Val_15 float, "+"X_Val_16 float, "+"Y_Val_16 float, "+"Z_Val_16 float, "+"X_Val_17 float, "+"Y_Val_17 float, "+"Z_Val_17 float, "+"X_Val_18 float, "+"Y_Val_18 float, "+"Z_Val_18 float, "+"X_Val_19 float, "+"Y_Val_19 float, "+"Z_Val_19 float, "+"X_Val_20 float, "+"Y_Val_20 float, "+"Z_Val_20 float, "+"X_Val_21 float, "+"Y_Val_21 float, "+"Z_Val_21 float, "+"X_Val_22 float, "+"Y_Val_22 float, "+"Z_Val_22 float, "+"X_Val_23 float, "+"Y_Val_23 float, "+"Z_Val_23 float, "+"X_Val_24 float, "+"Y_Val_24 float, "+"Z_Val_24 float, "+"X_Val_25 float, "+"Y_Val_25 float, "+"Z_Val_25 float, "+"X_Val_26 float, "+"Y_Val_26 float, "+"Z_Val_26 float, "+"X_Val_27 float, "+"Y_Val_27 float, "+"Z_Val_27 float, "+"X_Val_28 float, "+"Y_Val_28 float, "+"Z_Val_28 float, "+"X_Val_29 float, "+"Y_Val_29 float, "+"Z_Val_29 float, "+"X_Val_30 float, "+"Y_Val_30 float, "+"Z_Val_30 float, "+"X_Val_31 float, "+"Y_Val_31 float, "+"Z_Val_31 float, "+"X_Val_32 float, "+"Y_Val_32 float, "+"Z_Val_32 float, "+"X_Val_33 float, "+"Y_Val_33 float, "+"Z_Val_33 float, "+"X_Val_34 float, "+"Y_Val_34 float, "+"Z_Val_34 float, "+"X_Val_35 float, "+"Y_Val_35 float, "+"Z_Val_35 float, "+"X_Val_36 float, "+"Y_Val_36 float, "+"Z_Val_36 float, "+"X_Val_37 float, "+"Y_Val_37 float, "+"Z_Val_37 float, "+"X_Val_38 float, "+"Y_Val_38 float, "+"Z_Val_38 float, "+"X_Val_39 float, "+"Y_Val_39 float, "+"Z_Val_39 float, "+"X_Val_40 float, "+"Y_Val_40 float, "+"Z_Val_40 float, "+"X_Val_41 float, "+"Y_Val_41 float, "+"Z_Val_41 float, "+"X_Val_42 float, "+"Y_Val_42 float, "+"Z_Val_42 float, "+"X_Val_43 float, "+"Y_Val_43 float, "+"Z_Val_43 float, "+"X_Val_44 float, "+"Y_Val_44 float, "+"Z_Val_44 float, "+"X_Val_45 float, "+"Y_Val_45 float, "+"Z_Val_45 float, "+"X_Val_46 float, "+"Y_Val_46 float, "+"Z_Val_46 float, "+"X_Val_47 float, "+"Y_Val_47 float, "+"Z_Val_47 float, "+"X_Val_48 float, "+"Y_Val_48 float, "+"Z_Val_48 float, "+"X_Val_49 float, "+"Y_Val_49 float, "+"Z_Val_49 float, "+"X_Val_50 float, "+"Y_Val_50 float, "+"Z_Val_50 float, "+"Activity_Label varchar(30)  ); "
                 );
@@ -53,7 +52,6 @@ public class PatientDBHandler extends AppCompatActivity {
     }
 
 
-
     /**
      * Returns 10 latest datapoints from DATABASE_NAME, and table tableName based on timeStamp
      * @param  dbNameWithPath = This should be full path to database
@@ -62,45 +60,48 @@ public class PatientDBHandler extends AppCompatActivity {
      */
 //TODO : not used at the moment can be used for part 2
 
-    public void retrieveFromDB(String dbNameWithPath, String tableName){
+    public float[][] retrieveFromDB(String dbNameWithPath, String tableName){
 
-        //DataPoint[][] dataPoints = new DataPoint[3][10];
+        float data [][] = new float[60][151];
+        float label = 0;
         Cursor cursor;
         SQLiteDatabase dbhandler = null;
-        int i = 0;
-        Double xValue = 0.0;
-        Double yValue = 0.0;
-        Double zValue = 0.0;
-        Double tstamp = 0.0;
 
         try{
             dbhandler = SQLiteDatabase.openDatabase(dbNameWithPath, null, SQLiteDatabase.OPEN_READONLY);
-            String query =  "SELECT * FROM (SELECT * FROM "+tableName+
-                            " ORDER BY time_stamp " +
-                            " DESC LIMIT 10) ORDER BY time_stamp;";
+            String query =  "SELECT * FROM "+tableName+";";
 
             cursor = dbhandler.rawQuery(query, null);
-            int cnt = 0;
-
+            int rowCnt = 0;
 
             if (cursor.moveToFirst()) {
 
-                cnt = cursor.getCount();
-
+                int datapoint = 0;
                 while (!cursor.isAfterLast()){
-                    // get the data into array, or class variable
-                    tstamp = ((cursor.getDouble(cursor.getColumnIndex("time_stamp")))/1000);
 
-                    xValue = (double)(cursor.getFloat(cursor.getColumnIndex("x_value")));
-                    yValue = (double)(cursor.getFloat(cursor.getColumnIndex("y_value")));
-                    zValue = (double)(cursor.getFloat(cursor.getColumnIndex("z_value")));
+                    for(datapoint=0; datapoint<50; datapoint++){
+                        String xColName = "X_Val_"+datapoint;
+                        String yColName = "Y_Val_"+datapoint;
+                        String zColName = "Z_Val_"+datapoint;
 
-//                    dataPoints[0][i] = new DataPoint(tstamp, xValue);
-//                    dataPoints[1][i] = new DataPoint(tstamp, yValue);
-//                    dataPoints[2][i] = new DataPoint(tstamp, zValue);
-                    i++;
+                        data[rowCnt][datapoint*3] = (cursor.getFloat(cursor.getColumnIndex(xColName)));
+                        data[rowCnt][datapoint*3+1] = (cursor.getFloat(cursor.getColumnIndex(yColName)));
+                        data[rowCnt][datapoint*3+2] = (cursor.getFloat(cursor.getColumnIndex(zColName)));
+                        
+                    }
+                    String activity = (cursor.getString(cursor.getColumnIndex("Activity_Label")));
+
+                    // Enter the label
+                    if(activity.equals("running")){
+                        data[rowCnt][datapoint] = 1;
+                    }else if(activity.equals("walking")){
+                        data[rowCnt][datapoint] = 2;
+                    }else{
+                        data[rowCnt][datapoint] = 3;
+                    }
+
                     cursor.moveToNext();
-                    cnt--;
+                    rowCnt += 1;
                 }
                 cursor.close();
             }
@@ -109,17 +110,9 @@ public class PatientDBHandler extends AppCompatActivity {
         }catch (SQLException e){
             Toast.makeText( this , e.getMessage(), Toast.LENGTH_LONG).show();
         }finally {
-            while (i < 10){
-//                dataPoints[0][i] = new DataPoint(tstamp, xValue++);
-//                dataPoints[1][i] = new DataPoint(tstamp, yValue++);
-//                dataPoints[2][i] = new DataPoint(tstamp, zValue++);
-                tstamp++;
-                i++;
 
-
-            }
             dbhandler.close();
-//            return dataPoints;
+            return data;
         }
     }
 
@@ -154,6 +147,7 @@ public class PatientDBHandler extends AppCompatActivity {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
+
     public void OnUpdateDB(Context context , Float x_val, Float y_val , Float z_val) {
         SQLiteDatabase dbhandler = null;
         try{

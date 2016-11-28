@@ -50,6 +50,7 @@ public class Accelerometer extends Service implements SensorEventListener {
         this.sensorManager.registerListener(this, accelerometer, 100000);// Sampling frequency is 10hz
         startTime = System.currentTimeMillis();
     }
+
     /**
      * This is the event handler for sensor changes
      * @param event : event fed from the android sensor
@@ -85,9 +86,6 @@ public class Accelerometer extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-//        b = intent.getExtras();
-//        table_name = b.getString("Tablename");
         return super.onStartCommand(intent, flags, startId);
     }
 
