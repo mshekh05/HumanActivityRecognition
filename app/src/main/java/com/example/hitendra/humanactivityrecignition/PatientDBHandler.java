@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteException;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 /**
  * Created by Mohd on 10/2/2016.
  */
@@ -181,6 +184,25 @@ public class PatientDBHandler extends AppCompatActivity {
         }
         else {
             currentDataPointCount++;
+        }
+    }
+
+
+    public static void writeToFile(String filename, float data[][]){
+        try{
+            PrintWriter writer = new PrintWriter(filename, "UTF-8");
+            for(int rowCnt=0; rowCnt < data.length; rowCnt++){
+                String datapointString = ""+data[rowCnt][150];
+                for(int colCnt=0; colCnt<150; colCnt++) {
+                    datapointString += " "+(colCnt+1)+":"+data[rowCnt][colCnt];
+                }
+                datapointString += " \n";
+                writer.println(datapointString);
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            // do something
         }
     }
 }
