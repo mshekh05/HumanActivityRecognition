@@ -1,24 +1,20 @@
 package com.example.hitendra.humanactivityrecignition;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.util.Random;
 
 //Motion Sensor
 // SQLITE Database handler and exception
 
 public class MainActivity extends AppCompatActivity {
 
+    private static Boolean activityRunning = false;
 
 
 
@@ -27,6 +23,33 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
+        String[] items = new String[]{"Running", "Walking", "Eating"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapter);
+
+
+        Button start = (Button) findViewById(R.id.button);
+        final TextView status = (TextView) findViewById(R.id.statusValue);
+        TextView runningValue = (TextView) findViewById(R.id.runningValue);
+        TextView walkingValue = (TextView) findViewById(R.id.WalkingValue);
+        TextView EatingValue = (TextView) findViewById(R.id.EatingValue);
+
+
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!activityRunning) {
+                    activityRunning = true;
+                    // Do Some Task
+                    // Start Sensor
+                    // Register in DataBase
+                    status.setText("Capturing Data");
+                    startService();
+                } // Make Sure to disable activtyRunning Once Data is Gathered
+            }
+        });
 
     }
 
@@ -41,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public static int getCount(String Activity){
+        return 0;
+    }
 
 
 
