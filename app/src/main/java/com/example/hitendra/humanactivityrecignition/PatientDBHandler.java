@@ -17,9 +17,15 @@ public class PatientDBHandler extends AppCompatActivity {
     private static final int DATABASE_VERSION = 1;
 
 
+
     private static final String DATABASE_NAME = "ActivityGroup29DB.db";
     private static final String TABLE_NAME = "TrainingDataSet";
-    static  int columncount = 0;
+
+    public static int rowCount = 1;                // Should not be greater than 60
+    public static int currentDataPointCount = 10;   // Should not be greater than 50
+
+
+
     protected Context context;
     public PatientDBHandler(Context context){
         this.context = context;
@@ -170,7 +176,7 @@ public class PatientDBHandler extends AppCompatActivity {
 
             try{
 
-                dbhandler.execSQL( "UPDATE " + TABLE_NAME + " SET X_Val_"+columncount+ " = " + x_val+ " , Y_Val_"+columncount+ " = " + y_val+ ", Z_Val_"+columncount+ " = " + z_val+"WHERE ID =  (Select Max(ID) from "+ TABLE_NAME + " ); "
+                dbhandler.execSQL( "UPDATE " + TABLE_NAME + " SET X_Val_"+currentDataPointCount+ " = " + x_val+ " , Y_Val_"+currentDataPointCount+ " = " + y_val+ ", Z_Val_"+currentDataPointCount+ " = " + z_val+"WHERE ID =  (Select Max(ID) from "+ TABLE_NAME + " ); "
 
 
 
