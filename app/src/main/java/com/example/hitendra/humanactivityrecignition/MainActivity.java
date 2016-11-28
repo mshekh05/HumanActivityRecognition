@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         TextView walkingValue = (TextView) findViewById(R.id.WalkingValue);
         TextView EatingValue = (TextView) findViewById(R.id.EatingValue);
 
-
+        walkingValue.setText(""+PatientDBHandler.rowCount);
+        runningValue.setText(""+PatientDBHandler.currentDataPointCount);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     // Start Sensor
                     // Register in DataBase
                     status.setText("Capturing Data");
-                    startService();
+                    startService(findViewById(android.R.id.content).getRootView(), PatientDBHandler.TABLE_NAME);
                 } // Make Sure to disable activtyRunning Once Data is Gathered
             }
         });
