@@ -26,8 +26,8 @@ public class Accelerometer extends Service implements SensorEventListener {
     private long timeElapsed = 0;
 
     private long lastUpdate = 0;
-    Bundle b;
-    String table_name;
+//    Bundle b;
+//    String table_name;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -72,10 +72,10 @@ public class Accelerometer extends Service implements SensorEventListener {
                 //Toast.makeText(this, "Bitch @: " + x + " : " + y + " : " + z , Toast.LENGTH_LONG).show();
             }
 
-            if (table_name.length() > 0) {
+
                 PatientDBHandler PatientDB = new PatientDBHandler(this);
-                PatientDB.OnInsertDB(this,table_name, timeStamp, x, y, z);
-            }
+                PatientDB.OnUpdateDB(this, x, y, z);
+
 
         }
     }
@@ -83,8 +83,8 @@ public class Accelerometer extends Service implements SensorEventListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        b = intent.getExtras();
-        table_name = b.getString("Tablename");
+//        b = intent.getExtras();
+//        table_name = b.getString("Tablename");
         return super.onStartCommand(intent, flags, startId);
     }
 
