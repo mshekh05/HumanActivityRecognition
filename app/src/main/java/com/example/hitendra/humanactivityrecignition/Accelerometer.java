@@ -64,7 +64,7 @@ public class Accelerometer extends Service implements SensorEventListener {
         timeElapsed = System.currentTimeMillis() - startTime;
         if(timeElapsed > 5000){
             // Kick off Accerelations and update values
-            stopSensing();
+          //  stopSensing();
         }
         //implementing only for accelerometer
         if(healthMonitorSensor.getType() == Sensor.TYPE_ACCELEROMETER) {
@@ -72,12 +72,12 @@ public class Accelerometer extends Service implements SensorEventListener {
             y = event.values[1];
             z = event.values[2];
 
-            timeStamp = System.currentTimeMillis();
-            delta = timeStamp - lastUpdate;
-            if(delta > 100){
-                lastUpdate = timeStamp;
-                //Toast.makeText(this, "Bitch @: " + x + " : " + y + " : " + z , Toast.LENGTH_LONG).show();
-            }
+//            timeStamp = System.currentTimeMillis();
+//            delta = timeStamp - lastUpdate;
+//            if(delta > 100){
+//                lastUpdate = timeStamp;
+//                //Toast.makeText(this, " @: " + x + " : " + y + " : " + z , Toast.LENGTH_LONG).show();
+//            }
 
             PatientDBHandler PatientDB = new PatientDBHandler(this);
             PatientDB.OnUpdateDB(this, x, y, z);
@@ -93,10 +93,21 @@ public class Accelerometer extends Service implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+    @Override
+    public void onDestroy() {
+        this.sensorManager.unregisterListener(this);
+        Toast.makeText(this, "Accelerometer stopped ", Toast.LENGTH_SHORT).show();
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        return super.onUnbind(intent);
+    }
 
     public void stopSensing(){
         Intent stopSenseService = new Intent(getApplicationContext(), Accelerometer.class);
         stopService(stopSenseService);
-        Toast.makeText(this, "stopped", Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, "stopped", Toast.LENGTH_LONG).show();
     }
 }
