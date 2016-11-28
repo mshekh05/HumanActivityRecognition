@@ -35,7 +35,7 @@ public class Accelerometer extends Service implements SensorEventListener {
     @Override
     public void onCreate() {
         super.onCreate();
-        Toast.makeText(this, "Accelerometer Started", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Accelerometer Started", Toast.LENGTH_SHORT).show();
         this.sensorInit();
     }
 
@@ -43,7 +43,7 @@ public class Accelerometer extends Service implements SensorEventListener {
         this.sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         this.accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         //rate is used in this function
-        this.sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        this.sensorManager.registerListener(this, accelerometer, 100000);// Sampling frequency is 10hz
 
         //table_name = b.getString("Tablename");
     }
@@ -71,11 +71,10 @@ public class Accelerometer extends Service implements SensorEventListener {
 
             if (table_name.length() > 0) {
                 PatientDBHandler PatientDB = new PatientDBHandler(this);
-
-               PatientDB.OnInsertDB(this,table_name, timeStamp, x, y, z);
-
+                PatientDB.OnInsertDB(this,table_name, timeStamp, x, y, z);
             }
-             }
+
+        }
     }
 
     @Override
