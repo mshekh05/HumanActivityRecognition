@@ -68,38 +68,4 @@ public class MainActivity extends AppCompatActivity {
     public static int getCount(String Activity){
         return 0;
     }
-
-
-
-
-    private void processDownloadClick() {
-
-        final DownloadTask downloadTask = new DownloadTask(MainActivity.this);
-        downloadTask.execute("https://impact.asu.edu/CSE535Fall16Folder/ProductGroup29DB.db", "ProductGroup29DB.db");
-        Intent stopSenseService = new Intent(MainActivity.this, Accelerometer.class);
-        stopService(stopSenseService);
-
-//        started = 0;
-//        timerHandler.removeCallbacks(timerRunnable);
-//        //graph.setVisibility(View.GONE);
-//        mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//            @Override
-//            public void onCancel(DialogInterface dialog) {
-//                downloadTask.cancel(true);
-//            }
-//        });
-    }
-
-    private void processUploadClick() {
-
-        final UploadTask UploadTask = new UploadTask(MainActivity.this);
-        UploadTask.execute("https://impact.asu.edu/CSE535Fall16Folder/UploadToServer.php" , "ProductGroup29DB.db");
-
-//        mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//            @Override
-//            public void onCancel(DialogInterface dialog) {
-//                UploadTask.cancel(true);
-//            }
-//        });
-    }
 }

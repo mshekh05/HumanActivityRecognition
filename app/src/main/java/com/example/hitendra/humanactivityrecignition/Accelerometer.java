@@ -48,8 +48,7 @@ public class Accelerometer extends Service implements SensorEventListener {
         this.accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         //rate is used in this function
         this.sensorManager.registerListener(this, accelerometer, 100000);// Sampling frequency is 10hz
-        timeStarted = new Date();
-        //table_name = b.getString("Tablename");
+
     }
     /**
      * This is the event handler for sensor changes
