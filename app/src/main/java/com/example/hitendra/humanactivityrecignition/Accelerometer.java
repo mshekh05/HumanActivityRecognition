@@ -10,6 +10,8 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.widget.Toast;
+
+import java.util.Date;
 //import android.
 
 /**
@@ -21,6 +23,8 @@ public class Accelerometer extends Service implements SensorEventListener {
      */
     private SensorManager sensorManager;
     private Sensor accelerometer;
+    private long timeElapsed = 0;
+
     private long lastUpdate = 0;
     Bundle b;
     String table_name;
@@ -44,7 +48,7 @@ public class Accelerometer extends Service implements SensorEventListener {
         this.accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         //rate is used in this function
         this.sensorManager.registerListener(this, accelerometer, 100000);// Sampling frequency is 10hz
-
+        timeStarted = new Date();
         //table_name = b.getString("Tablename");
     }
     /**
