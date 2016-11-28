@@ -18,6 +18,10 @@ public class PatientDBHandler extends AppCompatActivity {
 
 
     private static final String DATABASE_NAME = "ProductGroup29DB.db";
+    private static int rowCount = 0;                // Should not be greater than 60
+    private static int currentDataPointCount = 0;   // Should not be greater than 50
+
+
     //public static final String TABLE_PRODUCTS = "products";
     //public static final String COLUMN_ID = "_id";
     //public static final String COLUMN_PRODUCTNAME = "productname";
