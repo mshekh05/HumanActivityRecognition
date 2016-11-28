@@ -151,7 +151,7 @@ public class PatientDBHandler extends AppCompatActivity {
             }
         }catch (SQLException e){
 
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
     public void OnUpdateDB(Context context , Float x_val, Float y_val , Float z_val) {
@@ -162,13 +162,13 @@ public class PatientDBHandler extends AppCompatActivity {
 
             try{
 
-                dbhandler.execSQL( "UPDATE " + TABLE_NAME + " SET X_Val_"+currentDataPointCount+ " = " + x_val+ " , Y_Val_"+currentDataPointCount+ " = " + y_val+ ", Z_Val_"+currentDataPointCount+ " = " + z_val+"WHERE ID =  (Select Max(ID) from "+ TABLE_NAME + " ); "
+                dbhandler.execSQL( "UPDATE " + TABLE_NAME + " SET X_Val_"+currentDataPointCount+ " = " + x_val+ " , Y_Val_"+currentDataPointCount+ " = " + y_val+ ", Z_Val_"+currentDataPointCount+ " = " + z_val+" WHERE ID =  (Select Max(ID) from "+ TABLE_NAME + " ); "
                 );
                 dbhandler.setTransactionSuccessful(); //commit your changes.setTransactionSuccessful();
 
             }
             catch (SQLiteException e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
             }
             finally {
                 dbhandler.endTransaction();
@@ -176,12 +176,15 @@ public class PatientDBHandler extends AppCompatActivity {
             }
         }catch (SQLException e){
 
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+
+    //    currentDataPointCount++;
+
         if (currentDataPointCount == 50) {
             Intent stopSenseService = new Intent(getApplicationContext(), Accelerometer.class);
             stopService(stopSenseService);
-            Toast.makeText(this, "stopped", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "stopped", Toast.LENGTH_LONG).show();
         }
         else {
             currentDataPointCount++;

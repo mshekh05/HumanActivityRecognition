@@ -15,6 +15,11 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private static Boolean activityRunning = false;
+    final TextView status = null;
+    TextView runningValue = null;
+    TextView walkingValue = null;
+    TextView EatingValue = null;
+
 
 
     @Override
@@ -43,14 +48,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!activityRunning) {
                     activityRunning = true;
-                    // Do Some Task
-                    // Start Sensor
-                    // Register in DataBase
+
                     PatientDB.OnInsertDB(view.getContext(),dropdown.getSelectedItem().toString());
-                    status.setText("Capturing Data");
-
-
+                    status.setText("Capturing Data - DND");
                     startService(view);
+
                 } // Make Sure to disable activtyRunning Once Data is Gathered
             }
         });
@@ -64,10 +66,6 @@ public class MainActivity extends AppCompatActivity {
         view.getContext().startService(startSenseService);
 
 
-    }
-
-    public static int getCount(String Activity) {
-        return 0;
     }
 }
 

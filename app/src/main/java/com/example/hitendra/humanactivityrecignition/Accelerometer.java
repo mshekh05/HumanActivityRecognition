@@ -24,7 +24,7 @@ public class Accelerometer extends Service implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor accelerometer;
     private long timeElapsed = 0;
-
+    private long startTime= 0;
     private long lastUpdate = 0;
 //    Bundle b;
 //    String table_name;
@@ -48,7 +48,7 @@ public class Accelerometer extends Service implements SensorEventListener {
         this.accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         //rate is used in this function
         this.sensorManager.registerListener(this, accelerometer, 100000);// Sampling frequency is 10hz
-
+        startTime = System.currentTimeMillis();
     }
     /**
      * This is the event handler for sensor changes
@@ -59,6 +59,12 @@ public class Accelerometer extends Service implements SensorEventListener {
         Sensor healthMonitorSensor = event.sensor;
         float x, y, z;
         long timeStamp, delta;
+
+        timeElapsed = System.currentTimeMillis() - startTime;
+        if(timeElapsed > 5000){
+            // Kick off Accerelations and update values
+            stopSensing();
+        }
         //implementing only for accelerometer
         if(healthMonitorSensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             x = event.values[0];
@@ -72,11 +78,8 @@ public class Accelerometer extends Service implements SensorEventListener {
                 //Toast.makeText(this, "Bitch @: " + x + " : " + y + " : " + z , Toast.LENGTH_LONG).show();
             }
 
-
-                PatientDBHandler PatientDB = new PatientDBHandler(this);
-                PatientDB.OnUpdateDB(this, x, y, z);
-
-
+            PatientDBHandler PatientDB = new PatientDBHandler(this);
+            PatientDB.OnUpdateDB(this, x, y, z);
         }
     }
 
@@ -91,5 +94,11 @@ public class Accelerometer extends Service implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    public void stopSensing(){
+        Intent stopSenseService = new Intent(getApplicationContext(), Accelerometer.class);
+        stopService(stopSenseService);
+        Toast.makeText(this, "stopped", Toast.LENGTH_LONG).show();
     }
 }
