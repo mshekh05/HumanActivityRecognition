@@ -17,7 +17,7 @@ public class PatientDBHandler extends AppCompatActivity {
     private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_NAME = "ActivityGroup29DB.db";
-    public static final String TABLE_NAME = "TrainingDataSet";
+    public static final String TABLE_NAME = "ActDataSet";
     public static int rowCount = 1;                // Should not be greater than 60
     public static int currentDataPointCount = 10;   // Should not be greater than 50
 
@@ -34,7 +34,7 @@ public class PatientDBHandler extends AppCompatActivity {
             try{
 
 
-                dbhandler.execSQL("CREATE TABLE IF NOT EXISTS "+ TABLE_NAME + " ("+ " ID INT IDENTITY(1,1) , "
+                dbhandler.execSQL("CREATE TABLE IF NOT EXISTS "+ TABLE_NAME + " ("+ " ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , "
                         + "X_Val_1 float, "+"Y_Val_1 float, "+"Z_Val_1 float, "+"X_Val_2 float, "+"Y_Val_2 float, "+"Z_Val_2 float, "+"X_Val_3 float, "+"Y_Val_3 float, "+"Z_Val_3 float, "+"X_Val_4 float, "+"Y_Val_4 float, "+"Z_Val_4 float, "+"X_Val_5 float, "+"Y_Val_5 float, "+"Z_Val_5 float, "+"X_Val_6 float, "+"Y_Val_6 float, "+"Z_Val_6 float, "+"X_Val_7 float, "+"Y_Val_7 float, "+"Z_Val_7 float, "+"X_Val_8 float, "+"Y_Val_8 float, "+"Z_Val_8 float, "+"X_Val_9 float, "+"Y_Val_9 float, "+"Z_Val_9 float, "+"X_Val_10 float, "+"Y_Val_10 float, "+"Z_Val_10 float, "+"X_Val_11 float, "+"Y_Val_11 float, "+"Z_Val_11 float, "+"X_Val_12 float, "+"Y_Val_12 float, "+"Z_Val_12 float, "+"X_Val_13 float, "+"Y_Val_13 float, "+"Z_Val_13 float, "+"X_Val_14 float, "+"Y_Val_14 float, "+"Z_Val_14 float, "+"X_Val_15 float, "+"Y_Val_15 float, "+"Z_Val_15 float, "+"X_Val_16 float, "+"Y_Val_16 float, "+"Z_Val_16 float, "+"X_Val_17 float, "+"Y_Val_17 float, "+"Z_Val_17 float, "+"X_Val_18 float, "+"Y_Val_18 float, "+"Z_Val_18 float, "+"X_Val_19 float, "+"Y_Val_19 float, "+"Z_Val_19 float, "+"X_Val_20 float, "+"Y_Val_20 float, "+"Z_Val_20 float, "+"X_Val_21 float, "+"Y_Val_21 float, "+"Z_Val_21 float, "+"X_Val_22 float, "+"Y_Val_22 float, "+"Z_Val_22 float, "+"X_Val_23 float, "+"Y_Val_23 float, "+"Z_Val_23 float, "+"X_Val_24 float, "+"Y_Val_24 float, "+"Z_Val_24 float, "+"X_Val_25 float, "+"Y_Val_25 float, "+"Z_Val_25 float, "+"X_Val_26 float, "+"Y_Val_26 float, "+"Z_Val_26 float, "+"X_Val_27 float, "+"Y_Val_27 float, "+"Z_Val_27 float, "+"X_Val_28 float, "+"Y_Val_28 float, "+"Z_Val_28 float, "+"X_Val_29 float, "+"Y_Val_29 float, "+"Z_Val_29 float, "+"X_Val_30 float, "+"Y_Val_30 float, "+"Z_Val_30 float, "+"X_Val_31 float, "+"Y_Val_31 float, "+"Z_Val_31 float, "+"X_Val_32 float, "+"Y_Val_32 float, "+"Z_Val_32 float, "+"X_Val_33 float, "+"Y_Val_33 float, "+"Z_Val_33 float, "+"X_Val_34 float, "+"Y_Val_34 float, "+"Z_Val_34 float, "+"X_Val_35 float, "+"Y_Val_35 float, "+"Z_Val_35 float, "+"X_Val_36 float, "+"Y_Val_36 float, "+"Z_Val_36 float, "+"X_Val_37 float, "+"Y_Val_37 float, "+"Z_Val_37 float, "+"X_Val_38 float, "+"Y_Val_38 float, "+"Z_Val_38 float, "+"X_Val_39 float, "+"Y_Val_39 float, "+"Z_Val_39 float, "+"X_Val_40 float, "+"Y_Val_40 float, "+"Z_Val_40 float, "+"X_Val_41 float, "+"Y_Val_41 float, "+"Z_Val_41 float, "+"X_Val_42 float, "+"Y_Val_42 float, "+"Z_Val_42 float, "+"X_Val_43 float, "+"Y_Val_43 float, "+"Z_Val_43 float, "+"X_Val_44 float, "+"Y_Val_44 float, "+"Z_Val_44 float, "+"X_Val_45 float, "+"Y_Val_45 float, "+"Z_Val_45 float, "+"X_Val_46 float, "+"Y_Val_46 float, "+"Z_Val_46 float, "+"X_Val_47 float, "+"Y_Val_47 float, "+"Z_Val_47 float, "+"X_Val_48 float, "+"Y_Val_48 float, "+"Z_Val_48 float, "+"X_Val_49 float, "+"Y_Val_49 float, "+"Z_Val_49 float, "+"X_Val_50 float, "+"Y_Val_50 float, "+"Z_Val_50 float, "+"Activity_Label varchar(30)  ); "
                 );
 
@@ -182,9 +182,8 @@ public class PatientDBHandler extends AppCompatActivity {
     //    currentDataPointCount++;
 
         if (currentDataPointCount == 50) {
-            Intent stopSenseService = new Intent(getApplicationContext(), Accelerometer.class);
-            stopService(stopSenseService);
-            Toast.makeText(context, "stopped", Toast.LENGTH_LONG).show();
+            MainActivity.stopService(context);
+//            Toast.makeText(context, "stopped", Toast.LENGTH_LONG).show();
         }
         else {
             currentDataPointCount++;

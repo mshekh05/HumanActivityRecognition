@@ -1,5 +1,6 @@
 package com.example.hitendra.humanactivityrecignition;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -67,6 +68,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    public static void stopService(Context context) {
+
+        Intent startSenseService = new Intent(context, Accelerometer.class);
+
+        context.stopService(startSenseService);
+
+
+    }
+
+
 }
 
 
