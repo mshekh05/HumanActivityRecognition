@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
         copyAssetsDataIfNeed();
 
         // 2. assign model/output paths
-        String dataTrainPath = appFolderPath+"heart_scale ";
-        String dataPredictPath = appFolderPath+"heart_scale ";
+        String dataTrainPath = appFolderPath+"training_set ";
+        String dataPredictPath = appFolderPath+"training_set ";
         String modelPath = appFolderPath+"model ";
         String outputPath = appFolderPath+"predict ";
 
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void copyAssetsDataIfNeed(){
-        String assetsToCopy[] = {"heart_scale_predict","heart_scale_train","heart_scale"};
+        String assetsToCopy[] = {"training_set_predict","training_set_train","training_set"};
         //String targetPath[] = {C.systemPath+C.INPUT_FOLDER+C.INPUT_PREFIX+AudioConfigManager.inputConfigTrain+".wav", C.systemPath+C.INPUT_FOLDER+C.INPUT_PREFIX+AudioConfigManager.inputConfigPredict+".wav",C.systemPath+C.INPUT_FOLDER+"SomeoneLikeYouShort.mp3"};
 
         for(int i=0; i<assetsToCopy.length; i++){
