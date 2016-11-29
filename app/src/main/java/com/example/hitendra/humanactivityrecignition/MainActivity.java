@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         file.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/libsvm/"+"training_set";
-                PatientDBHandler.writeToFile(filename, PatientDBHandler.retrieveFromDB(PatientDBHandler.DATABASE_NAME, PatientDBHandler.TABLE_NAME));
+                String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+"training_set.txt";
+                PatientDBHandler.writeToFile(view.getContext(),filename, PatientDBHandler.retrieveFromDB(view.getContext()));
             }
         });
 

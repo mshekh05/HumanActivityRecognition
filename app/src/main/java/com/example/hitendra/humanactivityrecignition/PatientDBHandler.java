@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteException;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -43,27 +44,26 @@ public class PatientDBHandler extends AppCompatActivity {
                 dbhandler.setTransactionSuccessful();
             }
             catch (SQLiteException e) {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
             }
             finally {
                 dbhandler.endTransaction();
                 dbhandler.close();
             }
         }catch (SQLException e){
-            Toast.makeText( this , e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText( context , e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
 
     /**
      * Returns 10 latest datapoints from DATABASE_NAME, and table tableName based on timeStamp
-     * @param  dbNameWithPath = This should be full path to database
-     * @param tableName
+
      * @return DataPoint , 10 records of datapoint
      */
 //TODO : not used at the moment can be used for part 2
 
-    public static float[][] retrieveFromDB(String dbNameWithPath, String tableName){
+    public static float[][] retrieveFromDB(Context context){
 
         float data [][] = new float[60][151];
         float label = 0;
@@ -71,8 +71,12 @@ public class PatientDBHandler extends AppCompatActivity {
         SQLiteDatabase dbhandler = null;
 
         try{
-            dbhandler = SQLiteDatabase.openDatabase(dbNameWithPath, null, SQLiteDatabase.OPEN_READONLY);
-            String query =  "SELECT * FROM "+tableName+";";
+            //dbhandler = SQLiteDatabase.openDatabase(dbNameWithPath, null, SQLiteDatabase.OPEN_READONLY);
+            dbhandler = context.openOrCreateDatabase( DATABASE_NAME,MODE_PRIVATE, null );
+
+            String query =  "SELECT * FROM "+TABLE_NAME+";";
+            String query2 =  "SELECT count(*) AS \"Count\" FROM "+TABLE_NAME+";";
+
 
             cursor = dbhandler.rawQuery(query, null);
             int rowCnt = 0;
@@ -83,9 +87,9 @@ public class PatientDBHandler extends AppCompatActivity {
                 while (!cursor.isAfterLast()){
 
                     for(datapoint=0; datapoint<50; datapoint++){
-                        String xColName = "X_Val_"+datapoint;
-                        String yColName = "Y_Val_"+datapoint;
-                        String zColName = "Z_Val_"+datapoint;
+                        String xColName = "X_Val_"+(datapoint+1);
+                        String yColName = "Y_Val_"+(datapoint+1);
+                        String zColName = "Z_Val_"+(datapoint+1);
 
                         data[rowCnt][datapoint*3] = (cursor.getFloat(cursor.getColumnIndex(xColName)));
                         data[rowCnt][datapoint*3+1] = (cursor.getFloat(cursor.getColumnIndex(yColName)));
@@ -95,18 +99,32 @@ public class PatientDBHandler extends AppCompatActivity {
                     String activity = (cursor.getString(cursor.getColumnIndex("Activity_Label")));
 
                     // Enter the label
-                    if(activity.equals("running")){
-                        data[rowCnt][datapoint] = 1;
-                    }else if(activity.equals("walking")){
-                        data[rowCnt][datapoint] = 2;
+                    if(activity.equals("Running")){
+                        data[rowCnt][datapoint*3] = 1;
+                    }else if(activity.equals("Walking")){
+                        data[rowCnt][datapoint*3] = 2;
                     }else{
-                        data[rowCnt][datapoint] = 3;
+                        data[rowCnt][datapoint*3] = 3;
                     }
 
                     cursor.moveToNext();
                     rowCnt += 1;
                 }
                 cursor.close();
+            }
+
+            cursor = dbhandler.rawQuery(query2, null);
+
+
+            if (cursor.moveToFirst()) {
+               rowCount=  cursor.getInt(cursor.getColumnIndex("Count"));
+// todo: rEMOVE THIS CHUTIYAP
+                if (rowCount == 60){
+
+                    Toast.makeText(context,"Ho gaya chutard", Toast.LENGTH_LONG).show();
+
+                }
+
             }
 
 
@@ -188,11 +206,13 @@ public class PatientDBHandler extends AppCompatActivity {
     }
 
 
-    public static void writeToFile(String filename, float data[][]){
+    public static void writeToFile(Context context,String filename, float data[][]){
         try{
-            PrintWriter writer = new PrintWriter(filename, "UTF-8");
-            for(int rowCnt=0; rowCnt < data.length; rowCnt++){
-                String datapointString = ""+data[rowCnt][150];
+            File fileRight = new File(filename);
+
+            PrintWriter writer = new PrintWriter(fileRight, "UTF-8");
+            for(int rowCnt=0; rowCnt < rowCount; rowCnt++){
+                String datapointString = ""+(int)data[rowCnt][150];
                 for(int colCnt=0; colCnt<150; colCnt++) {
                     datapointString += " "+(colCnt+1)+":"+data[rowCnt][colCnt];
                 }
@@ -202,7 +222,7 @@ public class PatientDBHandler extends AppCompatActivity {
 
             writer.close();
         } catch (IOException e) {
-            // do something
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
