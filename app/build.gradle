@@ -14,6 +14,23 @@ android {
             moduleName "jnilibsvm" // <-- This is the name of my C++ module!
         }
     }
+    productFlavors {
+        x86 {
+            ndk {
+                abiFilter "x86"
+            }
+        }
+        arm {
+            ndk {
+                abiFilter "armeabi-v7a"
+            }
+        }
+        mips {
+            ndk {
+                abiFilter "mips"
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
