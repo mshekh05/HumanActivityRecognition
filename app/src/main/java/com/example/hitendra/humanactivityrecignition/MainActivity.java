@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!activityRunning) {
-                    activityRunning = true;
+//                    activityRunning = true;
 
                     PatientDB.OnInsertDB(view.getContext(),dropdown.getSelectedItem().toString());
                     status.setText("Capturing Data - DND");
@@ -93,25 +93,25 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Libsvm code
-        systemPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/";
-        appFolderPath = systemPath+"libsvm/";
-
-        // 1. create necessary folder to save model files
-        CreateAppFolderIfNeed();
-        copyAssetsDataIfNeed();
-
-        // 2. assign model/output paths
-        String dataTrainPath = appFolderPath+"training_set ";
-        String dataPredictPath = appFolderPath+"training_set ";
-        String modelPath = appFolderPath+"model ";
-        String outputPath = appFolderPath+"predict ";
-
-        // 3. make SVM train
-        String svmTrainOptions = "-t 2 ";
-        jniSvmTrain(svmTrainOptions+dataTrainPath+modelPath);
-
-        // 4. make SVM predict
-        jniSvmPredict(dataPredictPath+modelPath+outputPath);
+//        systemPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/";
+//        appFolderPath = systemPath+"libsvm/";
+//
+//        // 1. create necessary folder to save model files
+//        CreateAppFolderIfNeed();
+//        copyAssetsDataIfNeed();
+//
+//        // 2. assign model/output paths
+//        String dataTrainPath = appFolderPath+"training_set ";
+//        String dataPredictPath = appFolderPath+"training_set ";
+//        String modelPath = appFolderPath+"model ";
+//        String outputPath = appFolderPath+"predict ";
+//
+//        // 3. make SVM train
+//        String svmTrainOptions = "-t 2 ";
+//        jniSvmTrain(svmTrainOptions+dataTrainPath+modelPath);
+//
+//        // 4. make SVM predict
+//        jniSvmPredict(dataPredictPath+modelPath+outputPath);
     }
 
     public static void startService(View view) {
@@ -127,71 +127,71 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*
-    * Some utility functions
-    * */
-    private void CreateAppFolderIfNeed(){
-        // 1. create app folder if necessary
-        File folder = new File(appFolderPath);
-
-        if (!folder.exists()) {
-            folder.mkdir();
-            Log.d(LOG_TAG,"Appfolder is not existed, create one");
-        } else {
-            Log.w(LOG_TAG,"WARN: Appfolder has not been deleted");
-        }
-
-
-    }
-
-    private void copyAssetsDataIfNeed(){
-        String assetsToCopy[] = {"training_set_predict","training_set_train","training_set"};
-        //String targetPath[] = {C.systemPath+C.INPUT_FOLDER+C.INPUT_PREFIX+AudioConfigManager.inputConfigTrain+".wav", C.systemPath+C.INPUT_FOLDER+C.INPUT_PREFIX+AudioConfigManager.inputConfigPredict+".wav",C.systemPath+C.INPUT_FOLDER+"SomeoneLikeYouShort.mp3"};
-
-        for(int i=0; i<assetsToCopy.length; i++){
-            String from = assetsToCopy[i];
-            String to = appFolderPath+from;
-
-            // 1. check if file exist
-            File file = new File(to);
-            if(file.exists()){
-                Log.d(LOG_TAG, "copyAssetsDataIfNeed: file exist, no need to copy:"+from);
-            } else {
-                // do copy
-                boolean copyResult = copyAsset(getAssets(), from, to);
-                Log.d(LOG_TAG, "copyAssetsDataIfNeed: copy result = "+copyResult+" of file = "+from);
-            }
-        }
-    }
-
-    private boolean copyAsset(AssetManager assetManager, String fromAssetPath, String toPath) {
-        InputStream in = null;
-        OutputStream out = null;
-        try {
-            in = assetManager.open(fromAssetPath);
-            new File(toPath).createNewFile();
-            out = new FileOutputStream(toPath);
-            copyFile(in, out);
-            in.close();
-            in = null;
-            out.flush();
-            out.close();
-            out = null;
-            return true;
-        } catch(Exception e) {
-            e.printStackTrace();
-            Log.e(LOG_TAG, "[ERROR]: copyAsset: unable to copy file = "+fromAssetPath);
-            return false;
-        }
-    }
-
-    private void copyFile(InputStream in, OutputStream out) throws IOException {
-        byte[] buffer = new byte[1024];
-        int read;
-        while((read = in.read(buffer)) != -1){
-            out.write(buffer, 0, read);
-        }
-    }
+//    /*
+//    * Some utility functions
+//    * */
+//    private void CreateAppFolderIfNeed(){
+//        // 1. create app folder if necessary
+//        File folder = new File(appFolderPath);
+//
+//        if (!folder.exists()) {
+//            folder.mkdir();
+//            Log.d(LOG_TAG,"Appfolder is not existed, create one");
+//        } else {
+//            Log.w(LOG_TAG,"WARN: Appfolder has not been deleted");
+//        }
+//
+//
+//    }
+//
+//    private void copyAssetsDataIfNeed(){
+//        String assetsToCopy[] = {"training_set_predict","training_set_train","training_set"};
+//        //String targetPath[] = {C.systemPath+C.INPUT_FOLDER+C.INPUT_PREFIX+AudioConfigManager.inputConfigTrain+".wav", C.systemPath+C.INPUT_FOLDER+C.INPUT_PREFIX+AudioConfigManager.inputConfigPredict+".wav",C.systemPath+C.INPUT_FOLDER+"SomeoneLikeYouShort.mp3"};
+//
+//        for(int i=0; i<assetsToCopy.length; i++){
+//            String from = assetsToCopy[i];
+//            String to = appFolderPath+from;
+//
+//            // 1. check if file exist
+//            File file = new File(to);
+//            if(file.exists()){
+//                Log.d(LOG_TAG, "copyAssetsDataIfNeed: file exist, no need to copy:"+from);
+//            } else {
+//                // do copy
+//                boolean copyResult = copyAsset(getAssets(), from, to);
+//                Log.d(LOG_TAG, "copyAssetsDataIfNeed: copy result = "+copyResult+" of file = "+from);
+//            }
+//        }
+//    }
+//
+//    private boolean copyAsset(AssetManager assetManager, String fromAssetPath, String toPath) {
+//        InputStream in = null;
+//        OutputStream out = null;
+//        try {
+//            in = assetManager.open(fromAssetPath);
+//            new File(toPath).createNewFile();
+//            out = new FileOutputStream(toPath);
+//            copyFile(in, out);
+//            in.close();
+//            in = null;
+//            out.flush();
+//            out.close();
+//            out = null;
+//            return true;
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//            Log.e(LOG_TAG, "[ERROR]: copyAsset: unable to copy file = "+fromAssetPath);
+//            return false;
+//        }
+//    }
+//
+//    private void copyFile(InputStream in, OutputStream out) throws IOException {
+//        byte[] buffer = new byte[1024];
+//        int read;
+//        while((read = in.read(buffer)) != -1){
+//            out.write(buffer, 0, read);
+//        }
+//    }
 
 
 }
