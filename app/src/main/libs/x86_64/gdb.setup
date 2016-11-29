@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 set solib-search-path C:/Users/Mohd/Documents/GIT/Android/HumanActivityRecognition/app/src/main/obj/local/x86_64
 directory C:/Users/Mohd/AppData/Local/Android/sdk/ndk-bundle/build//../platforms/android-21/arch-x86_64/usr/include C:/Users/Mohd/AppData/Local/Android/sdk/ndk-bundle/build//../sources/cxx-stl/gnu-libstdc++ C:/Users/Mohd/AppData/Local/Android/sdk/ndk-bundle/build//../sources/cxx-stl/gnu-libstdc++/4.9/include C:/Users/Mohd/AppData/Local/Android/sdk/ndk-bundle/build//../sources/cxx-stl/gnu-libstdc++/4.9/libs/x86_64/include C:/Users/Mohd/AppData/Local/Android/sdk/ndk-bundle/build//../sources/cxx-stl/gnu-libstdc++/4.9/include/backward C:/Users/Mohd/Documents/GIT/Android/HumanActivityRecognition/app/src/main/jni
+=======
+set solib-search-path C:/Users/santo/StudioProjects/HumanActivityRecognition/app/src/main/obj/local/x86_64
+directory C:/Users/santo/AppData/Local/Android/sdk/ndk-bundle/build//../platforms/android-21/arch-x86_64/usr/include C:/Users/santo/AppData/Local/Android/sdk/ndk-bundle/build//../sources/cxx-stl/gnu-libstdc++ C:/Users/santo/AppData/Local/Android/sdk/ndk-bundle/build//../sources/cxx-stl/gnu-libstdc++/4.9/include C:/Users/santo/AppData/Local/Android/sdk/ndk-bundle/build//../sources/cxx-stl/gnu-libstdc++/4.9/libs/x86_64/include C:/Users/santo/AppData/Local/Android/sdk/ndk-bundle/build//../sources/cxx-stl/gnu-libstdc++/4.9/include/backward C:/Users/santo/StudioProjects/HumanActivityRecognition/app/src/main/jni
+>>>>>>> 61cf66f48dd910b186daa6ba86ea2eaa1b9275bc
