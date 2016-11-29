@@ -205,6 +205,7 @@ public class PatientDBHandler extends AppCompatActivity {
             // do something
         }
     }
+
 }
 
 
