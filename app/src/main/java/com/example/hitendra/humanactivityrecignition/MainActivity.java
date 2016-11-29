@@ -3,6 +3,7 @@ package com.example.hitendra.humanactivityrecignition;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         dropdown.setAdapter(adapter);
 
 
-        Button start = (Button) findViewById(R.id.button);
         final TextView status = (TextView) findViewById(R.id.statusValue);
         TextView runningValue = (TextView) findViewById(R.id.runningValue);
         TextView walkingValue = (TextView) findViewById(R.id.WalkingValue);
@@ -44,6 +44,18 @@ public class MainActivity extends AppCompatActivity {
 
         walkingValue.setText("" + PatientDBHandler.rowCount);
         runningValue.setText("" + PatientDBHandler.currentDataPointCount);
+
+        Button start = (Button) findViewById(R.id.button);
+        Button file = (Button) findViewById(R.id.filegenerate);
+
+        file.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String filename = Environment.getExternalStorageDirectory().getAbsolutePath() + "/"+"training_set";
+                PatientDBHandler.writeToFile(filename, PatientDBHandler.retrieveFromDB(PatientDBHandler.DATABASE_NAME, PatientDBHandler.TABLE_NAME));
+            }
+        });
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

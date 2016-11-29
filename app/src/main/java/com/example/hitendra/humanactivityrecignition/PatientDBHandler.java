@@ -19,7 +19,7 @@ import java.io.PrintWriter;
 public class PatientDBHandler extends AppCompatActivity {
     private static final int DATABASE_VERSION = 1;
 
-    private static final String DATABASE_NAME = "ActivityGroup29DB.db";
+    public static final String DATABASE_NAME = "ActivityGroup29DB.db";
     public static final String TABLE_NAME = "ActDataSet";
     public static int rowCount = 1;                // Should not be greater than 60
     public static int currentDataPointCount = 10;   // Should not be greater than 50
@@ -63,7 +63,7 @@ public class PatientDBHandler extends AppCompatActivity {
      */
 //TODO : not used at the moment can be used for part 2
 
-    public float[][] retrieveFromDB(String dbNameWithPath, String tableName){
+    public static float[][] retrieveFromDB(String dbNameWithPath, String tableName){
 
         float data [][] = new float[60][151];
         float label = 0;
@@ -111,7 +111,7 @@ public class PatientDBHandler extends AppCompatActivity {
 
 
         }catch (SQLException e){
-            Toast.makeText( this , e.getMessage(), Toast.LENGTH_LONG).show();
+            //Toast.makeText( this , e.getMessage(), Toast.LENGTH_LONG).show();
         }finally {
 
             dbhandler.close();
